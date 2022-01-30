@@ -13,7 +13,7 @@ var initCmd = &cobra.Command{
 	Short: "Init your ebiten game",
 	Long: `Init your ebiten game`,
 	Run: func(cmd *cobra.Command, args []string) {
-		
+		fmt.Println("do called")
 	},
 }
 
