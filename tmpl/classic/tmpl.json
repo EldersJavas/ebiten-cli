@@ -1,0 +1,17 @@
+{
+  "name": "classic",
+  "target": [
+    "main.go.tmpl",
+    "game/draw.go.tmpl",
+    "game/update.go.tmpl",
+    "game/update.go.tmpl",
+    "game/update.go.tmpl",
+    "main.go.tmpl"
+  ],
+  "author": [
+    "EldersJavas"
+  ],
+  "version": "1.0",
+  "cli-version": "1.0",
+  "ebiten-version": "2.0.0"
+}

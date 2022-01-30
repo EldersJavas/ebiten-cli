@@ -1,0 +1,14 @@
+package main
+
+import (
+	"github.com/hajimehoshi/ebiten/v2"
+)
+
+func main() {
+	ebiten.SetWindowSize()
+	ebiten.SetWindowTitle()
+	if err := ebiten.RunGame(&Game{}); err != nil {
+    log.Fatal(err)
+    }
+
+}

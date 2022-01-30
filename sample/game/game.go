@@ -5,8 +5,8 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
-type Game struct {
 
+type Game struct {
 }
 
 func NewGame() *Game {
