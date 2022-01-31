@@ -5,7 +5,7 @@
 Toools for create ebiten projects.
 
 ## TODO
-- [ ] complete (30%)
+- [ ] complete (40%)
 - [ ] basic init
 - [ ] support mizu
 - [ ] support gohan
