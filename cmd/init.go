@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/EbitenPot/ebiten-cli/model"
+	"os"
 	"strconv"
 	"time"
 
@@ -13,15 +15,24 @@ var initCmd = &cobra.Command{
 	Short: "Init your ebiten game",
 	Long: `Init your ebiten game`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("do called")
+		rootpath, _ := os.Getwd()
+		fmt.Println(args)
+		cmd.Println("Target folder: "+rootpath)
+
 	},
 }
 
+var InitJon model.Project
+var rootpath string
+
+// init
 func init() {
+	
+
+	initCmd.PersistentFlags().StringVar(&InitJon.Game.Name,"name","game-"+ strconv.FormatInt(time.Now().Unix(),10),"Game project name")
+	initCmd.PersistentFlags().StringVar(&InitJon.Game.Type,"type","s","Project type")
+	initCmd.PersistentFlags().StringVar(&InitJon.Game.Repo,"module", "", "Go module name")
 	rootCmd.AddCommand(initCmd)
-	initCmd.PersistentFlags().String("name","game-"+ strconv.FormatInt(time.Now().Unix(),10),"Game project name")
-	initCmd.PersistentFlags().String("type","s","Project type")
-	initCmd.PersistentFlags().String("module","","Go module name")
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
 	// initCmd.PersistentFlags().String("foo", "", "A help for foo")

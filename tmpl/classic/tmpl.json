@@ -1,11 +1,11 @@
 {
-  "name": "classic",
+  "name": "ebiten-classic",
   "target": [
     "main.go.tmpl",
     "game/draw.go.tmpl",
     "game/update.go.tmpl",
-    "game/update.go.tmpl",
-    "game/update.go.tmpl",
+    "game/type.go.tmpl",
+    "game/layout.go.tmpl",
     "main.go.tmpl"
   ],
   "author": [

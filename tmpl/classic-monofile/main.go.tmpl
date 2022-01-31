@@ -22,7 +22,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 }
 
 func main() {
-	ebiten.SetWindowSize()
+	ebiten.SetWindowSize(,)
 	ebiten.SetWindowTitle()
 	if err := ebiten.RunGame(&Game{}); err != nil {
         log.Fatal(err)

@@ -1,24 +1,16 @@
 package model
 
+import "log"
+
 const (
 	ProjectJson string = `{
     "game": {
         "name": "value",
         "repo": "value",
-        "website": "value",
         "go-version": "value",
         "ebiten-version": "value",
         "type": "value",
-        "field": "value",
         "version": "value",
-        "setting": {
-            "GameWidth": 0,
-            "GameHeight": 0,
-            "WindowWidth": 0,
-            "WindowHeight": 0,
-            "GameTitle": "value",
-            "field": "value"
-        },
         "language": [
             "value"
         ]
@@ -49,7 +41,8 @@ const (
         },
         "cgo": false,
         "makefile": "value",
-        "statustype": 1
+        "statustype": 1,
+		"cli-version": ""
     }
 }`
 	TmplJson string = `{
@@ -67,28 +60,18 @@ const (
 )
 
 func init() {
-	println(ProjectJson, TmplJson)
+	log.Println(ProjectJson, TmplJson)
 }
 
 type Project struct {
 	Game struct {
-		Name          string `json:"name"`
-		Repo          string `json:"repo"`
-		Website       string `json:"website"`
-		GoVersion     string `json:"go-version"`
-		EbitenVersion string `json:"ebiten-version"`
-		Type          string `json:"type"`
-		Field         string `json:"field"`
-		Version       string `json:"version"`
-		Setting       struct {
-			GameWidth    int    `json:"GameWidth"`
-			GameHeight   int    `json:"GameHeight"`
-			WindowWidth  int    `json:"WindowWidth"`
-			WindowHeight int    `json:"WindowHeight"`
-			GameTitle    string `json:"GameTitle"`
-			Field        string `json:"field"`
-		} `json:"setting"`
-		Language []string `json:"language"`
+		Name          string   `json:"name"`
+		Repo          string   `json:"repo"`
+		GoVersion     string   `json:"go-version"`
+		EbitenVersion string   `json:"ebiten-version"`
+		Type          string   `json:"type"`
+		Version       string   `json:"version"`
+		Language      []string `json:"language"`
 	} `json:"game"`
 	Dev struct {
 		Author     []string `json:"author"`
@@ -109,9 +92,11 @@ type Project struct {
 			Autogomod   bool `json:"autogomod"`
 			Autogofmt   bool `json:"autogofmt"`
 		} `json:"cli"`
-		Cgo        bool   `json:"cgo"`
-		Makefile   string `json:"makefile"`
-		Statustype int    `json:"statustype"`
+		Cgo          bool   `json:"cgo"`
+		Makefile     string `json:"makefile"`
+		Statustype   int    `json:"statustype"`
+		CliVersion   string `json:"cli-version"`
+		StandVersion string `json:"Standard-Version"`
 	} `json:"project"`
 }
 
@@ -123,3 +108,19 @@ type Tmpl struct {
 	CliVersion    string   `json:"cli-version"`
 	EbitenVersion string   `json:"ebiten-version"`
 }
+
+const (
+	StatustypeAchieve    = 0
+	StatustypeActive     = 1
+	StatustypeDebug      = 2
+	StatustypeRelease    = 3
+	StatustypePreRelease = 4
+	StatustypeHold       = 128
+	StatustypeDelete     = 404    //Just 404
+	StatustypeFixing     = 502    //just 503
+	StatustypeRewrite    = 233    //
+	StatustypePause      = 1409   //just
+	StatustypeCBT        = 114233 //close beta test
+	StatustypePBT        = 114514 //public beta test
+
+)
