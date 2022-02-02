@@ -4,6 +4,8 @@
 
 # Ebiten-cli 项目标准 完整 1.0
 
+[![GitHub license](https://img.shields.io/github/license/EldersJavas/ebiten-cli?logo=apache&logoColor=red&style=flat-square)](https://github.com/EldersJavas/ebiten-cli/blob/master/LICENSE)
+
 ## 目的
 为了方便项目管理和生成,便于项目的查看,特此制定项目标准
 

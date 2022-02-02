@@ -4,6 +4,8 @@
 
 # Ebiten-cli 项目标准 精简 1.0
 
+[![GitHub license](https://img.shields.io/github/license/EldersJavas/ebiten-cli?logo=apache&logoColor=red&style=flat-square)](https://github.com/EldersJavas/ebiten-cli/blob/master/LICENSE)
+
 ## 目的
 为了方便项目管理和生成,便于项目的查看,并解决`Ebiten-cli 项目标准 完整 v1.0`臃肿的问题,特此制定项目标准.
 
@@ -78,7 +80,18 @@ v1.0, 2022-02-02
 ## Go struct
 
 ```go
-
+type ECSTProject struct {
+    Game struct {
+        Name string `json:"name"`
+        Repo string `json:"repo"`
+        Type string `json:"type"`
+    } `json:"game"`
+    Project struct {
+        Statustype int    `json:"statustype"`
+        CliVersion string `json:"cli-version"`
+        Standard   string `json:"standard"`
+    } `json:"project"`
+}
 ```
 
 By EldersJavas
