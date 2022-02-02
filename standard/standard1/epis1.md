@@ -1,1 +1,0 @@
-# EbitenPot IDE Project Standard 1.0 
