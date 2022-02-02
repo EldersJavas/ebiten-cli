@@ -2,10 +2,13 @@
 
 [![wakatime](https://wakatime.com/badge/user/251739d5-2666-4202-9df0-c3b0c64457e4/project/1b45a32c-2320-4256-b50a-aca2391c1fc5.svg)](https://wakatime.com/badge/user/251739d5-2666-4202-9df0-c3b0c64457e4/project/1b45a32c-2320-4256-b50a-aca2391c1fc5)
 
+
 Toools for create ebiten projects.
 
+_in development._
+
 ## TODO
-- [ ] complete (40%)
+- [ ] **complete** (50%)
 - [ ] basic init
 - [ ] support mizu
 - [ ] support gohan
@@ -39,3 +42,6 @@ Flags:
 
 Use "ebiten-cli [command] --help" for more information about a command.
 ```
+
+## Standard
+See  ./standard/README.md 

@@ -3,9 +3,7 @@
 package model
 
 const (
-	Version = "1.0"
-	StandVersion = "1.0"
+	Version       = "1.0"
+	StandVersion  = "1.0"
 	AbleHotUpdate = false
-
 )
-

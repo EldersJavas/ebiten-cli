@@ -5,9 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
+
 func main() {
 	router := gin.Default()
-	router.GET("/",func(c *gin.Context) {
+	router.GET("/", func(c *gin.Context) {
 		firstname := c.DefaultQuery("p", "") //如果没有值，还可以给一个默认值
 		lastname := c.Query("lastname")
 		c.String(http.StatusOK, "Hello %s %s ", firstname, lastname)

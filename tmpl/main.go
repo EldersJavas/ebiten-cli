@@ -11,7 +11,7 @@ import (
 func main() {
 	parseFiles, err := template.ParseFiles()
 	if err != nil {
-		return 
+		return
 	}
 	// 创建模板对象, parse关联模板
 	//tmpl, err := template.New("test").Parse("{{.Name}} ID is {{ .ID }}")
@@ -20,6 +20,5 @@ func main() {
 	// 渲染stu为动态数据, 标准输出到终端
 	//err = parseFiles.Execute(os.Stdout, stu)
 	//if err != nil {
-		panic(err)
-	}
+	panic(err)
 }

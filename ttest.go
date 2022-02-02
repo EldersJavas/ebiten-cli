@@ -1,6 +1,7 @@
 //// Created by EldersJavas(EldersJavas&gmail.com)
 //
-//package main
+package main
+
 //
 //import (
 //	"github.com/hajimehoshi/ebiten/v2"

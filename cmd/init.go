@@ -2,7 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/EbitenPot/ebiten-cli/model"
+	"github.com/EldersJavas/ebiten-cli/cmd/tool"
+	"github.com/EldersJavas/ebiten-cli/model"
 	"os"
 	"strconv"
 	"time"
@@ -13,25 +14,29 @@ import (
 var initCmd = &cobra.Command{
 	Use:   "init",
 	Short: "Init your ebiten game",
-	Long: `Init your ebiten game`,
+	Long:  `Init your ebiten game`,
 	Run: func(cmd *cobra.Command, args []string) {
 		rootpath, _ := os.Getwd()
 		fmt.Println(args)
-		cmd.Println("Target folder: "+rootpath)
+		cmd.Println("Target folder: " + tool.WinDir(rootpath))
+		if tool.VaildFile("config.json"){
+			cmd.Println("Target flies: " + "./config.json")
+		}else {
+			cmd.Println("./config.json already exists. Please delete it and again.")
+		}
+
 
 	},
 }
 
-var InitJon model.Project
+var InitJon model.ECSTProject
 var rootpath string
 
 // init
 func init() {
-	
-
-	initCmd.PersistentFlags().StringVar(&InitJon.Game.Name,"name","game-"+ strconv.FormatInt(time.Now().Unix(),10),"Game project name")
-	initCmd.PersistentFlags().StringVar(&InitJon.Game.Type,"type","s","Project type")
-	initCmd.PersistentFlags().StringVar(&InitJon.Game.Repo,"module", "", "Go module name")
+	initCmd.PersistentFlags().StringVar(&InitJon.Game.Name, "name", "game-"+strconv.FormatInt(time.Now().Unix(), 10), "Game project name")
+	initCmd.PersistentFlags().StringVar(&InitJon.Game.Type, "type", "classic", "Project type")
+	initCmd.PersistentFlags().StringVar(&InitJon.Game.Repo, "module", "", "Go module name")
 	rootCmd.AddCommand(initCmd)
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:

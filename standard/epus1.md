@@ -1,0 +1,1 @@
+# Ebiten Project Union Standard 1.0

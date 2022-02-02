@@ -1,9 +1,7 @@
 package model
 
-import "log"
-
 const (
-	ProjectJson string = `{
+	ECSF1Json string = `{
     "game": {
         "name": "value",
         "repo": "value",
@@ -40,9 +38,22 @@ const (
             "autogofmt": false
         },
         "cgo": false,
-        "makefile": "value",
+        "makefile": "makefile",
         "statustype": 1,
-		"cli-version": ""
+        "cli-version": "a",
+        "standard": "ecsf1"
+    }
+}`
+	ECST1Json string = `{
+    "game": {
+        "name": "value",
+        "repo": "value",
+        "type": "value"
+    },
+    "project": {
+        "statustype": 1,
+        "cli-version": "a",
+        "standard": "ecsf1"
     }
 }`
 	TmplJson string = `{
@@ -60,10 +71,10 @@ const (
 )
 
 func init() {
-	log.Println(ProjectJson, TmplJson)
+	//log.Println(ECSF1Json,ECSF1Json, TmplJson)
 }
 
-type Project struct {
+type ECSFProject struct {
 	Game struct {
 		Name          string   `json:"name"`
 		Repo          string   `json:"repo"`
@@ -74,16 +85,13 @@ type Project struct {
 		Language      []string `json:"language"`
 	} `json:"game"`
 	Dev struct {
-		Author     []string `json:"author"`
-		Translator struct {
-		} `json:"translator"`
-		Constructor struct {
-		} `json:"constructor"`
-		Developer struct {
-		} `json:"developer"`
-		Contributor []string `json:"contributor"`
-		Use         []string `json:"use"`
-		Thanks      []string `json:"thanks"`
+		Author      []string          `json:"author"`
+		Translator  map[string]string `json:"translator"`
+		Constructor map[string]string `json:"constructor"`
+		Developer   map[string]string `json:"developer"`
+		Contributor []string          `json:"contributor"`
+		Use         []string          `json:"use"`
+		Thanks      []string          `json:"thanks"`
 	} `json:"dev"`
 	Project struct {
 		Cli struct {
@@ -92,11 +100,24 @@ type Project struct {
 			Autogomod   bool `json:"autogomod"`
 			Autogofmt   bool `json:"autogofmt"`
 		} `json:"cli"`
-		Cgo          bool   `json:"cgo"`
-		Makefile     string `json:"makefile"`
-		Statustype   int    `json:"statustype"`
-		CliVersion   string `json:"cli-version"`
-		StandVersion string `json:"Standard-Version"`
+		Cgo        bool   `json:"cgo"`
+		Makefile   string `json:"makefile"`
+		Statustype int    `json:"statustype"`
+		CliVersion string `json:"cli-version"`
+		Standard   string `json:"standard"`
+	} `json:"project"`
+}
+
+type ECSTProject struct {
+	Game struct {
+		Name string `json:"name"`
+		Repo string `json:"repo"`
+		Type string `json:"type"`
+	} `json:"game"`
+	Project struct {
+		Statustype int    `json:"statustype"`
+		CliVersion string `json:"cli-version"`
+		Standard   string `json:"standard"`
 	} `json:"project"`
 }
 
@@ -109,18 +130,15 @@ type Tmpl struct {
 	EbitenVersion string   `json:"ebiten-version"`
 }
 
-const (
-	StatustypeAchieve    = 0
-	StatustypeActive     = 1
-	StatustypeDebug      = 2
-	StatustypeRelease    = 3
-	StatustypePreRelease = 4
-	StatustypeHold       = 128
-	StatustypeDelete     = 404    //Just 404
-	StatustypeFixing     = 502    //just 503
-	StatustypeRewrite    = 233    //
-	StatustypePause      = 1409   //just
-	StatustypeCBT        = 114233 //close beta test
-	StatustypePBT        = 114514 //public beta test
-
-)
+const StatustypeAchieve = 0
+const StatustypeActive = 1
+const StatustypeDebug = 2
+const StatustypeRelease = 3
+const StatustypePreRelease = 4
+const StatustypeHold = 128
+const StatustypeDelete = 404  // Just 404
+const StatustypeFixing = 502  // just 503
+const StatustypeRewrite = 233 //
+const StatustypePause = 1409  // just
+const StatustypeCBT = 114233  // close beta test
+const StatustypePBT = 114514  // public beta test

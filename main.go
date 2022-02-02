@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "github.com/EbitenPot/ebiten-cli/cmd"
+import "github.com/EldersJavas/ebiten-cli/cmd"
 
 func main() {
 	cmd.Execute()

@@ -6,7 +6,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/EbitenPot/ebiten-cli/model"
+	"github.com/EldersJavas/ebiten-cli/model"
 
 	"github.com/spf13/cobra"
 )
@@ -15,9 +15,9 @@ import (
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "version",
-	Long: `version`,
+	Long:  `version`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Cli version : v", model.Version,"\nEbiten-Cli Json Standard Version : v ", model.StandVersion)
+		fmt.Println("Cli version : v", model.Version, "\nEbiten-Cli Standard Version : v ", model.StandVersion)
 	},
 }
 
