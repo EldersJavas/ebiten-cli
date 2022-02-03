@@ -19,7 +19,7 @@ import (
 
 //获取应用根目录
 func GetAppRootDir() string {
-	if rootDir , err := filepath.Abs(filepath.Dir(os.Args[0])); err != nil {
+	if rootDir, err := filepath.Abs(filepath.Dir(os.Args[0])); err != nil {
 		return ""
 	} else {
 		return WinDir(rootDir)
@@ -27,8 +27,8 @@ func GetAppRootDir() string {
 }
 
 //验证 s 是否存在 slice 中
-func InSliceString(s string , slices []string) bool {
-	for _,v := range slices {
+func InSliceString(s string, slices []string) bool {
+	for _, v := range slices {
 		if v == s {
 			return true
 		}
@@ -36,9 +36,18 @@ func InSliceString(s string , slices []string) bool {
 	return false
 }
 
-//Windows下Dir路径转换
+//Windows下Dir路径统一Linux格式
 func WinDir(dir string) string {
-	return strings.Replace(dir , "\\" , "/" , -1)
+	return strings.Replace(dir, "\\", "/", -1)
+}
+
+//自动判断系统并返回使用的格式
+func DirFormat() string {
+	if os.Getenv("GOOS") == "windows" {
+		return "\\"
+	} else {
+		return "/"
+	}
 }
 
 //获取文件名称（不带后缀）
@@ -46,7 +55,7 @@ func GetFileBaseName(filepath string) string {
 	basefile := path.Base(filepath)
 	ext := path.Ext(filepath)
 
-	return strings.Replace(basefile , ext , "" , 1)
+	return strings.Replace(basefile, ext, "", 1)
 }
 
 //检验目录是否存在
@@ -61,9 +70,8 @@ func DirExists(path string) bool {
 	return false
 }
 
-
 //创建目录
-func CreateDir(path string , all bool) error {
+func CreateDir(path string, all bool) error {
 	var err error
 	if all {
 		err = os.Mkdir(path, os.ModePerm)
@@ -96,36 +104,34 @@ func OpenUrl(url string) error {
 	return c.Start()
 }
 
-
 //获取随机字符串
 func GetRandomCodeString(len int) string {
 	seed := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-	seedArr := strings.Split(seed , "")
+	seedArr := strings.Split(seed, "")
 
 	result := []string{}
 	index := 0
 	for index < len {
-		s := GetIntRandomNumber(0 , 61)
-		result = append(result , seedArr[s])
+		s := GetIntRandomNumber(0, 61)
+		result = append(result, seedArr[s])
 
 		index++
 	}
 
-	return strings.Join(result , "")
+	return strings.Join(result, "")
 }
 
 //设置随机种子
-func SetRandomSeed()  {
-	rand.Seed(time.Now().Unix())  //设置随机种子
+func SetRandomSeed() {
+	rand.Seed(time.Now().Unix()) //设置随机种子
 }
-
 
 //获取某范围的随机整数
-func GetIntRandomNumber(min int64 , max int64) int64 {
-	return rand.Int63n(max - min) + min
+func GetIntRandomNumber(min int64, max int64) int64 {
+	return rand.Int63n(max-min) + min
 }
 
-func RepeatStr(str string , s string , length int , before bool) string {
+func RepeatStr(str string, s string, length int, before bool) string {
 	ln := len(str)
 
 	if ln >= length {
@@ -133,16 +139,15 @@ func RepeatStr(str string , s string , length int , before bool) string {
 	}
 
 	if before {
-		return  strings.Repeat(s , (length - ln)) + str
+		return strings.Repeat(s, (length-ln)) + str
 	} else {
-		return  str + strings.Repeat(s , (length - ln))
+		return str + strings.Repeat(s, (length-ln))
 	}
 }
 
-
 //校验文件是否存在
-func VaildFile (file string) bool {
-	_, err := os.Stat(file)  //os.Stat获取文件信息
+func VaildFile(file string) bool {
+	_, err := os.Stat(file) //os.Stat获取文件信息
 	if err != nil {
 		if os.IsExist(err) {
 			return true
@@ -151,7 +156,6 @@ func VaildFile (file string) bool {
 	}
 	return true
 }
-
 
 //文本md5
 func Md5String(str string) string {
@@ -172,7 +176,7 @@ func GetTimestampDateTimeString(timeStamp int64) string {
 }
 
 //播放音频指定时长【可循环】
-func PlayAudioSec(audio string , playSec float64) (err error) {
+func PlayAudioSec(audio string, playSec float64) (err error) {
 	f, err := os.Open(audio)
 	if err != nil {
 		return
@@ -198,7 +202,7 @@ func PlayAudioSec(audio string , playSec float64) (err error) {
 	var p float64 = 0
 	var t float64 = 0
 	for t < playSec {
-		time.Sleep(time.Millisecond*200)
+		time.Sleep(time.Millisecond * 200)
 		t += 0.2
 		p += 0.2
 

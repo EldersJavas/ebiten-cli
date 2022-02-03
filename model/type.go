@@ -128,6 +128,7 @@ type Tmpl struct {
 	Version       string   `json:"version"`
 	CliVersion    string   `json:"cli-version"`
 	EbitenVersion string   `json:"ebiten-version"`
+	Standard      string   `json:"standard"`
 }
 
 const StatustypeAchieve = 0

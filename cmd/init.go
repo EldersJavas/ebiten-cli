@@ -19,12 +19,16 @@ var initCmd = &cobra.Command{
 		rootpath, _ := os.Getwd()
 		fmt.Println(args)
 		cmd.Println("Target folder: " + tool.WinDir(rootpath))
-		if tool.VaildFile("config.json"){
+		if tool.VaildFile("config.json") {
 			cmd.Println("Target flies: " + "./config.json")
-		}else {
-			cmd.Println("./config.json already exists. Please delete it and again.")
-		}
+			if InitJon.Game.Repo == "" {
+				InitJon.Game.Repo = InitJon.Game.Name
+			}
 
+		} else {
+			cmd.Println("./config.json already exists. Please delete it and again.")
+			return
+		}
 
 	},
 }
