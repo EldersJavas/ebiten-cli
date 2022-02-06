@@ -1,9 +1,11 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/EldersJavas/ebiten-cli/cmd/tool"
 	"github.com/EldersJavas/ebiten-cli/model"
+	"io/ioutil"
 	"os"
 	"strconv"
 	"time"
@@ -19,11 +21,16 @@ var initCmd = &cobra.Command{
 		rootpath, _ := os.Getwd()
 		fmt.Println(args)
 		cmd.Println("Target folder: " + tool.WinDir(rootpath))
-		if tool.VaildFile("config.json") {
+		if tool.VaildFile(rootpath+tool.DirFormat()+"config.json") {
 			cmd.Println("Target flies: " + "./config.json")
-			if InitJon.Game.Repo == "" {
-				InitJon.Game.Repo = InitJon.Game.Name
+			if InitJon.Game.Repo == "" {InitJon.Game.Repo = InitJon.Game.Name}
+			switch InitJon.Game.Type {
+			case "":
+
+
 			}
+			SaveFile("",InitJon)
+
 
 		} else {
 			cmd.Println("./config.json already exists. Please delete it and again.")
@@ -38,9 +45,9 @@ var rootpath string
 
 // init
 func init() {
-	initCmd.PersistentFlags().StringVar(&InitJon.Game.Name, "name", "game-"+strconv.FormatInt(time.Now().Unix(), 10), "Game project name")
-	initCmd.PersistentFlags().StringVar(&InitJon.Game.Type, "type", "classic", "Project type")
-	initCmd.PersistentFlags().StringVar(&InitJon.Game.Repo, "module", "", "Go module name")
+	initCmd.Flags().StringVarP(&InitJon.Game.Name, "name", "n", "game-"+strconv.FormatInt(time.Now().Unix(), 10), "Game project name")
+	initCmd.Flags().StringVarP(&InitJon.Game.Type, "type", "t", "classic", "Project type")
+	initCmd.Flags().StringVarP(&InitJon.Game.Repo, "module", "m", "", "Go module name(blank same game name)")
 	rootCmd.AddCommand(initCmd)
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
@@ -49,4 +56,10 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// initCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+}
+func SaveFile(filename string,thing interface{}) ( error) {
+	saveData, _ := json.Marshal(thing)
+	err := ioutil.WriteFile(filename, saveData, os.ModeAppend)
+	if err != nil {return err}
+	return nil
 }

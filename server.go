@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func main() {
+func web() {
 	router := gin.Default()
 	router.GET("/", func(c *gin.Context) {
 		firstname := c.DefaultQuery("p", "") //如果没有值，还可以给一个默认值

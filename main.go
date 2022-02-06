@@ -15,8 +15,14 @@ limitations under the License.
 */
 package main
 
-import "github.com/EldersJavas/ebiten-cli/cmd"
+import (
+	"github.com/EldersJavas/ebiten-cli/cmd"
+	"github.com/EldersJavas/ebiten-cli/cmd/tool"
+)
+
+var CLIROOT string
 
 func main() {
+	CLIROOT = tool.GetAppRootDir()
 	cmd.Execute()
 }

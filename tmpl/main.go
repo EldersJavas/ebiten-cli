@@ -4,58 +4,75 @@ package tmpl
 
 import (
 	"encoding/json"
-	"github.com/EldersJavas/ebiten-cli/cmd"
 	"github.com/EldersJavas/ebiten-cli/cmd/tool"
 	"github.com/EldersJavas/ebiten-cli/model"
 	"io/ioutil"
 	"log"
 	"os"
-	"path/filepath"
-	"text/template"
 )
 
-var AllTmpl []model.Tmpl
-var (
+var Gobal App
+
+type App struct {
+	AllTmpl []model.Tmpl
 	TmplDir []string
-)
-
-func init()  {
-
 }
 
-// GetTaskOfDir 从项目目录读取任务
-func GetTmplFromDir(path string)  {
-	Tpathlist,_:=ioutil.ReadDir(path)
-	for _,Tpath:=range Tpathlist{
-		if Tpath.IsDir(){
-			if tool.VaildFile(Tpath.Name()+tool.DirFormat()+"config.json"){
+func init() {
+	Gobal.AllTmpl = append(Gobal.AllTmpl, GetTmplFromDir(tool.GetAppRootDir()+tool.DirFormat()+"tmpl")...)
+}
+
+// GetTmplFromDir GetTmplOfDir
+func GetTmplFromDir(path string) (box []model.Tmpl) {
+	Tpathlist, err := ioutil.ReadDir(path)
+	if err != nil {
+		log.Println(err)
+	}
+	log.Println(Tpathlist)
+	for _, Tpath := range Tpathlist {
+		if Tpath.IsDir() {
+			//println(path + tool.DirFormat() + Tpath.Name() + tool.DirFormat() + "tmpl.json")
+			if PPPathJson := path + tool.DirFormat() + Tpath.Name() + tool.DirFormat() + "tmpl.json"; tool.VaildFile(PPPathJson) {
 				var TTmpl model.Tmpl
-				TTmplJ,_:=os.ReadFile(Tpath.Name()+tool.DirFormat()+"config.json")
-				json.Unmarshal(TTmplC,&TTmpl)
-			}else {
-				log.Println(Tpath.Name()+" is not tmpl")}
+				TTmplJ, err := os.ReadFile(PPPathJson)
+				//log.Println(TTmplJ)
+				if err != nil {
+					log.Println(err)
+				}
+				err = json.Unmarshal(TTmplJ, &TTmpl)
+				if err != nil {
+					log.Println(err)
+				}
+				if TTmpl.CliVersion != "" {
+					box = append(box, TTmpl)
+				}
+			} else {
+				log.Println(Tpath.Name() + " is not tmpl")
+			}
 		}
 	}
+	return
 }
 
 func isTmpl(path string) bool {
-
+	return true
 }
 
-func TmplInit() {
-	parseFiles, err := template.ParseFiles()
-	if err != nil {
-		return
-	}
-	// 创建模板对象, parse关联模板
-	//tmpl, err := template.New("test").Parse("{{.Name}} ID is {{ .ID }}")
-
-	if err != nil {
-		return
-	}
-	log.Fatal()
-	// 渲染stu为动态数据, 标准输出到终端
-	//err = parseFiles.Execute(os.Stdout, stu)
+func TmplInit(app App) []model.Tmpl {
+	return app.AllTmpl
+	//parseFiles, err := template.ParseFiles()
 	//if err != nil {
-	panic(err)
+	//	return
+	//}
+	//// 创建模板对象, parse关联模板
+	////tmpl, err := template.New("test").Parse("{{.Name}} ID is {{ .ID }}")
+	//
+	//if err != nil {
+	//	return
+	//}
+	//log.Fatal()
+	//// 渲染stu为动态数据, 标准输出到终端
+	////err = parseFiles.Execute(os.Stdout, stu)
+	////if err != nil {
+	//panic(err)
 }
