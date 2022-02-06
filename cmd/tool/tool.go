@@ -8,12 +8,9 @@ import (
 	"github.com/faiface/beep/speaker"
 	"math/rand"
 	"os"
-	"os/exec"
 	"path"
 	"path/filepath"
-	"runtime"
 	"strings"
-	"syscall"
 	"time"
 )
 
@@ -82,26 +79,6 @@ func CreateDir(path string, all bool) error {
 		return err
 	}
 	return nil
-}
-
-// open opens the specified URL in the default browser of the user.
-func OpenUrl(url string) error {
-	var cmd string
-	var args []string
-
-	switch runtime.GOOS {
-	case "windows":
-		cmd = "cmd"
-		args = []string{"/c", "start"}
-	case "darwin":
-		cmd = "open"
-	default: // "linux", "freebsd", "openbsd", "netbsd"
-		cmd = "xdg-open"
-	}
-	args = append(args, url)
-	c := exec.Command(cmd, args...)
-	c.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
-	return c.Start()
 }
 
 //获取随机字符串
