@@ -4,6 +4,7 @@ package tmpl
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/EldersJavas/ebiten-cli/cmd/tool"
 	"github.com/EldersJavas/ebiten-cli/model"
 	"io/ioutil"
@@ -16,6 +17,11 @@ var Gobal App
 type App struct {
 	AllTmpl []model.Tmpl
 	TmplDir []string
+}
+
+type TargetPT struct {
+	Tmpl model.Tmpl
+	path string
 }
 
 func init() {
@@ -31,36 +37,68 @@ func GetTmplFromDir(path string) (box []model.Tmpl) {
 	log.Println(Tpathlist)
 	for _, Tpath := range Tpathlist {
 		if Tpath.IsDir() {
-			//println(path + tool.DirFormat() + Tpath.Name() + tool.DirFormat() + "tmpl.json")
-			if PPPathJson := path + tool.DirFormat() + Tpath.Name() + tool.DirFormat() + "tmpl.json"; tool.VaildFile(PPPathJson) {
-				var TTmpl model.Tmpl
-				TTmplJ, err := os.ReadFile(PPPathJson)
-				//log.Println(TTmplJ)
-				if err != nil {
-					log.Println(err)
-				}
-				err = json.Unmarshal(TTmplJ, &TTmpl)
-				if err != nil {
-					log.Println(err)
-				}
-				if TTmpl.CliVersion != "" {
-					box = append(box, TTmpl)
-				}
+			// println(path + tool.DirFormat() + Tpath.Name() + tool.DirFormat() + "tmpl.json")
+			PPPathJson := path + tool.DirFormat() + Tpath.Name() + tool.DirFormat() + "tmpl.json"
+			if b, t, e := IsTmpl(PPPathJson); b {
+				box = append(box, t)
 			} else {
-				log.Println(Tpath.Name() + " is not tmpl")
+				log.Println(e)
 			}
 		}
 	}
 	return
 }
 
-func isTmpl(path string) bool {
-	return true
+// IsTmpl Check Tmpl
+func IsTmpl(path string) (bool, model.Tmpl, error) {
+	if tool.VaildFile(path) {
+		var TTmpl model.Tmpl
+		TTmplJ, err := os.ReadFile(path)
+		if err != nil {
+			return false, model.Tmpl{}, errors.New("unable to read file")
+		}
+		err = json.Unmarshal(TTmplJ, &TTmpl)
+		if err != nil {
+			return false, model.Tmpl{}, errors.New("unable to load JSON")
+		}
+		if TTmpl.CliVersion == model.Version {
+			return true, TTmpl, nil
+		} else if TTmpl.CliVersion != model.Version && TTmpl.CliVersion != "" {
+			return false, model.Tmpl{}, errors.New("incompatible version")
+		} else {
+			return false, model.Tmpl{}, errors.New("not Ebiten-cli tmpl JSON file")
+		}
+	} else {
+		return false, model.Tmpl{}, errors.New("not file")
+	}
 }
 
-func TmplInit(app App) []model.Tmpl {
+func (p TargetPT) CopyPjJSON() error {
+	for _, s := range p.Tmpl.Target {
+		if tool.GetFileBaseName(s)=="config"{
+			f, err := os.Create("./output3.txt") //创建文件
+			defer f.Close()
+			n2, err := f.Write(d1) //写入文件(字节数组)
+			n3, err := f.WriteString("writesn") //写入文件(字节数组)
+			err = f.Sync()
+			if err != nil {
+				return err
+			}
+		}
+		
+	}
+}
+
+// StartTmplPrint StartTmpl
+func (a App) StartTmplPrint(path string) error {
+		
+	
+	return nil
+}
+
+func TsmplInit(app App) []model.Tmpl {
 	return app.AllTmpl
-	//parseFiles, err := template.ParseFiles()
+	// parseFiles, err := template.ParseFiles()
 	//if err != nil {
 	//	return
 	//}

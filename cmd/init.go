@@ -21,16 +21,16 @@ var initCmd = &cobra.Command{
 		rootpath, _ := os.Getwd()
 		fmt.Println(args)
 		cmd.Println("Target folder: " + tool.WinDir(rootpath))
-		if tool.VaildFile(rootpath+tool.DirFormat()+"config.json") {
+		if tool.VaildFile(rootpath + tool.DirFormat() + "config.json") {
 			cmd.Println("Target flies: " + "./config.json")
-			if InitJon.Game.Repo == "" {InitJon.Game.Repo = InitJon.Game.Name}
+			if InitJon.Game.Repo == "" {
+				InitJon.Game.Repo = InitJon.Game.Name
+			}
 			switch InitJon.Game.Type {
 			case "":
 
-
 			}
-			SaveFile("",InitJon)
-
+			SaveFile("", InitJon)
 
 		} else {
 			cmd.Println("./config.json already exists. Please delete it and again.")
@@ -57,9 +57,11 @@ func init() {
 	// is called directly, e.g.:
 	// initCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
-func SaveFile(filename string,thing interface{}) ( error) {
+func SaveFile(filename string, thing interface{}) error {
 	saveData, _ := json.Marshal(thing)
 	err := ioutil.WriteFile(filename, saveData, os.ModeAppend)
-	if err != nil {return err}
+	if err != nil {
+		return err
+	}
 	return nil
 }

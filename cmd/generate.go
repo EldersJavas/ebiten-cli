@@ -14,7 +14,7 @@ import (
 var generateCmd = &cobra.Command{
 	Use:   "generate",
 	Short: "generate",
-	Long: `generate`,
+	Long:  `generate`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("generate called")
 
