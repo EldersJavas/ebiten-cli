@@ -15,13 +15,15 @@ import (
 var Gobal App
 
 type App struct {
+	TmplPath string
 	AllTmpl []model.Tmpl
 	TmplDir []string
 }
 
 type TargetPT struct {
+	TmplPath string
 	Tmpl model.Tmpl
-	path string
+	Path string
 }
 
 func init() {
@@ -75,24 +77,23 @@ func IsTmpl(path string) (bool, model.Tmpl, error) {
 
 func (p TargetPT) CopyPjJSON() error {
 	for _, s := range p.Tmpl.Target {
-		if tool.GetFileBaseName(s)=="config"{
-			f, err := os.Create("./output3.txt") //创建文件
+		if tool.GetFileBaseName(s) == "config" {
+			f, err := os.Create("./config.json") //创建文件
 			defer f.Close()
-			n2, err := f.Write(d1) //写入文件(字节数组)
-			n3, err := f.WriteString("writesn") //写入文件(字节数组)
+			n2, err := f.Write([]byte(p.Tmpl.))              //写入文件(字节数组)
+
 			err = f.Sync()
 			if err != nil {
 				return err
 			}
 		}
-		
+
 	}
 }
 
 // StartTmplPrint StartTmpl
 func (a App) StartTmplPrint(path string) error {
-		
-	
+
 	return nil
 }
 
